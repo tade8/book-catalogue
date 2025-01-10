@@ -1,6 +1,6 @@
 The book catalogue application
 
-Open another terminal and navigate to the management service module
+Open a terminal and navigate to the management service module
 
     cd managementservice 
 
@@ -13,7 +13,7 @@ Linux(Git bash) / MacOS(Z shell):
 
     ./mvnw spring-boot:run
 
-Open a terminal and navigate to the webservice module
+Open a new terminal and navigate to the webservice module
     
     cd webservice 
   
