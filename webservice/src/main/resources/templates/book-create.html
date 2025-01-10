@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Book</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Create a New Book</h1>
+<form th:action="@{/books}" th:method="post">
+    <!-- Book Name -->
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter book name" required>
+    </div>
+
+    <!-- ISBN Number -->
+    <div>
+        <label for="isbn">ISBN Number:</label>
+        <input type="text" id="isbn" name="isbn" placeholder="Enter ISBN number" required>
+    </div>
+
+    <!-- Publish Date -->
+    <div>
+        <label for="publishDate">Publish Date:</label>
+        <input type="text" id="publishDate" name="publishDate" placeholder="dd/MM/yyyy" required>
+    </div>
+
+    <!-- Price -->
+    <div>
+        <label for="price">Price (ZAR):</label>
+        <input type="number" id="price" name="price" placeholder="Enter price" step="0.01" required>
+    </div>
+
+    <!-- Book Type -->
+    <div>
+        <label for="bookType">Book Type:</label>
+        <select id="bookType" name="bookType" required>
+            <option value="" disabled selected>Select book type</option>
+            <option value="Hard Cover">Hard Cover</option>
+            <option value="Soft Cover">Soft Cover</option>
+            <option value="eBook">eBook</option>
+            <option value="Audio Book">Audio Book</option>
+        </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+        <button type="submit">Create Book</button>
+    </div>
+</form>
+</body>
+</html>
