@@ -16,6 +16,7 @@ import java.util.*;
 @Validated
 @Slf4j
 public class BookServiceImpl implements BookService{
+    public static final String BOOK_NOT_FOUND = "Book not found";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -28,28 +29,32 @@ public class BookServiceImpl implements BookService{
     @Override
     public Book createBook(@NotNull Book book) {
         book = bookRepository.save(book);
-//        log.info("Book created: {}", book);
+        log.info("Book created: {}", book);
         return book;
     }
 
     @Override
     public List<Book> getAllBooks() {
         List<Book> books = bookRepository.findAll();
-//        log.info("All books: {}", books);
+        log.info("All books: {}", books);
         return books;
     }
 
     @Override
     public Book updateBook(@Valid @NotNull Book book) {
        Book foundBook = bookRepository.findById(book.getId()).
-                orElseThrow(() -> new RuntimeException("Book not found"));
+                orElseThrow(() -> new RuntimeException(BOOK_NOT_FOUND));
        foundBook = bookMapper.updateBook(book, foundBook);
-       return bookRepository.save(foundBook);
+       foundBook = bookRepository.save(foundBook);
+       log.info("Book updated: {}", foundBook);
+       return foundBook;
     }
 
     @Override
     public String deleteBook(@NotNull String bookId) {
-        bookRepository.deleteById(bookId);
-        return String.format("Book with ID %s deleted successfully", bookId);
+        Book foundBook = bookRepository.findById(bookId).
+                orElseThrow(() -> new RuntimeException(BOOK_NOT_FOUND));
+        bookRepository.delete(foundBook);
+        return String.format("%s deleted successfully", foundBook.getName());
     }
 }

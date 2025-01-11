@@ -2,7 +2,6 @@ package com.org.managementservice.controller;
 
 import com.org.managementservice.data.model.*;
 import com.org.managementservice.service.*;
-import lombok.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +9,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/books")
-//@RequiredArgsConstructor
 public class BookController {
     private BookService bookService;
 

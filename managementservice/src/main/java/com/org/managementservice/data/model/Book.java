@@ -12,7 +12,7 @@ import java.time.*;
 @AllArgsConstructor
 @Getter
 @Setter
-//@ToString
+@ToString
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -1,10 +1,11 @@
 package com.org.managementservice.service;
 
 import com.org.managementservice.data.model.*;
+import com.org.managementservice.data.repository.*;
 import jakarta.validation.*;
 import lombok.extern.slf4j.*;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
-import org.junit.platform.commons.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 
@@ -15,11 +16,16 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Slf4j
 class BookServiceImplTest {
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookRepository bookRepository;
     private Book book;
+    private String bookId;
 
     @BeforeEach
     void setUp() {
@@ -31,19 +37,21 @@ class BookServiceImplTest {
         book.setPublishedDate(LocalDate.of(2024, 2, 3));
     }
 
-    @AfterEach
+    @AfterAll
     void tearDown() {
-        if (book != null && book.getId() != null) {
+        if (book != null && StringUtils.isNotEmpty(book.getId())) {
             bookService.deleteBook(book.getId());
         }
     }
 
     @Test
+    @Order(1)
     void createBook() {
         book = bookService.createBook(book);
 
         assertNotNull(book);
-        assertNotNull(book.getId());
+        bookId = book.getId();
+        assertNotNull(bookId);
     }
 
     @Test
@@ -52,12 +60,8 @@ class BookServiceImplTest {
     }
 
     @Test
+    @Order(2)
     void viewAllBooks() {
-        book.setName("Things Fall Apart");
-        book.setIsbn("86431-09675");
-        book = bookService.createBook(book);
-        assertNotNull(book);
-
         List<Book> books = bookService.getAllBooks();
 
         assertNotNull(books);
@@ -65,14 +69,13 @@ class BookServiceImplTest {
     }
 
     @Test
+    @Order(3)
     void editBook() {
-        book.setName("Half a yellow sun");
-        book.setIsbn("64566-074762");
-        book = bookService.createBook(book);
-        assertNotNull(book);
+        Optional<Book> foundBook = bookRepository.findById(bookId);
+        assertTrue(foundBook.isPresent());
 
-        book.setName("Half of a yellow sun");
-        Book updatedBook = bookService.updateBook(book);
+        foundBook.get().setName("Half of a yellow sun");
+        Book updatedBook = bookService.updateBook(foundBook.get());
 
         assertNotNull(updatedBook);
         assertNotEquals(updatedBook, book);
@@ -87,9 +90,15 @@ class BookServiceImplTest {
     @Test
     void editBookWithNullId() {
         book.setId(null);
-        ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> bookService.updateBook(book));
-        log.info("Exception message: {}", exception.getMessage());
+        assertThrows(ConstraintViolationException.class, () -> bookService.updateBook(book));
+    }
+
+    @Test
+    @Order(4)
+    void deleteBook() {
+        String response = bookService.deleteBook(bookId);
+
+        assertEquals("Half of a yellow sun deleted successfully", response);
     }
 
     @Test
