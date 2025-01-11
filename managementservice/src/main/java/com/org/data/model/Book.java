@@ -1,10 +1,9 @@
-package com.org.managementservice.data.model;
+package com.org.data.model;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.springframework.format.annotation.*;
 
 import java.math.*;
 import java.time.*;

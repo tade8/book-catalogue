@@ -1,4 +1,4 @@
-package com.org.managementservice.controller;
+package com.org.controller;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;

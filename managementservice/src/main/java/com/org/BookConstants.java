@@ -1,4 +1,4 @@
-package com.org.managementservice;
+package com.org;
 
 public class BookConstants {
     public static final String BOOK_NOT_FOUND = "Book not found";

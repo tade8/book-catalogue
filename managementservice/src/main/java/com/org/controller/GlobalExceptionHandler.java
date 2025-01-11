@@ -1,6 +1,7 @@
-package com.org.managementservice.controller;
+package com.org.controller;
 
 import com.org.managementservice.service.*;
+import com.org.service.*;
 import jakarta.validation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

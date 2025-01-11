@@ -1,5 +1,6 @@
-package com.org.managementservice.service;
+package com.org.service;
 
+import com.org.data.model.*;
 import com.org.managementservice.data.model.*;
 import jakarta.validation.*;
 import jakarta.validation.constraints.*;
