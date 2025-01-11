@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.annotation.*;
 
+import java.time.*;
 import java.util.*;
 
 @Component
 @Validated
 @Slf4j
 public class BookServiceImpl implements BookService{
-    public static final String BOOK_NOT_FOUND = "Book not found";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -27,7 +27,12 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book createBook(@NotNull Book book) {
+    public Book createBook(@NotNull Book book) throws BookException {
+        Optional<Book> foundBook = bookRepository.findByName(book.getName());
+        if (foundBook.isPresent()) {
+            throw new BookException(BookConstants.THIS_BOOK_ALREADY_EXISTS);
+        }
+        book.setPublishedDate(LocalDate.now());
         book = bookRepository.save(book);
         log.info("Book created: {}", book);
         return book;
@@ -41,9 +46,9 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book updateBook(@Valid @NotNull Book book) {
+    public Book updateBook(@Valid @NotNull Book book) throws BookException {
        Book foundBook = bookRepository.findById(book.getId()).
-                orElseThrow(() -> new RuntimeException(BOOK_NOT_FOUND));
+                orElseThrow(() -> new BookException(BookConstants.BOOK_NOT_FOUND));
        foundBook = bookMapper.updateBook(book, foundBook);
        foundBook = bookRepository.save(foundBook);
        log.info("Book updated: {}", foundBook);
@@ -51,9 +56,9 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public String deleteBook(@NotNull String bookId) {
+    public String deleteBook(@NotNull String bookId) throws BookException {
         Book foundBook = bookRepository.findById(bookId).
-                orElseThrow(() -> new RuntimeException(BOOK_NOT_FOUND));
+                orElseThrow(() -> new BookException(BookConstants.BOOK_NOT_FOUND));
         bookRepository.delete(foundBook);
         return String.format("%s deleted successfully", foundBook.getName());
     }

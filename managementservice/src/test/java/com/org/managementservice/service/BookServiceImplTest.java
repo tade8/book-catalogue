@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 
 import java.math.*;
-import java.time.*;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,24 +33,41 @@ class BookServiceImplTest {
         book.setBookType(BookType.E_BOOK);
         book.setIsbn("90057-36980");
         book.setPrice(new BigDecimal("5000.89"));
-        book.setPublishedDate(LocalDate.of(2024, 2, 3));
     }
 
     @AfterAll
     void tearDown() {
         if (book != null && StringUtils.isNotEmpty(book.getId())) {
-            bookService.deleteBook(book.getId());
+            try {
+                bookService.deleteBook(book.getId());
+            } catch (BookException e) {
+                log.info("Error deleting book: {}", e.getMessage());
+            }
         }
     }
 
     @Test
     @Order(1)
     void createBook() {
-        book = bookService.createBook(book);
+        try {
+            book = bookService.createBook(book);
+        } catch (BookException e) {
+            log.info("Error creating book: {}", e.getMessage());
+        }
 
         assertNotNull(book);
+        assertNotNull(book.getPublishedDate());
+        assertNotNull(book.getId());
         bookId = book.getId();
-        assertNotNull(bookId);
+    }
+
+    @Test
+    @Order(2)
+    void createExistingBook() {
+        Optional<Book> foundBook = bookRepository.findByName(book.getName());
+        assertTrue(foundBook.isPresent());
+
+        assertThrows(BookException.class, ()-> bookService.createBook(foundBook.get()));
     }
 
     @Test
@@ -60,7 +76,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void viewAllBooks() {
         List<Book> books = bookService.getAllBooks();
 
@@ -69,13 +85,18 @@ class BookServiceImplTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void editBook() {
         Optional<Book> foundBook = bookRepository.findById(bookId);
         assertTrue(foundBook.isPresent());
 
         foundBook.get().setName("Half of a yellow sun");
-        Book updatedBook = bookService.updateBook(foundBook.get());
+        Book updatedBook = null;
+        try {
+            updatedBook = bookService.updateBook(foundBook.get());
+        } catch (BookException e) {
+            log.info("Error updating book: {}", e.getMessage());
+        }
 
         assertNotNull(updatedBook);
         assertNotEquals(updatedBook, book);
@@ -94,9 +115,14 @@ class BookServiceImplTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void deleteBook() {
-        String response = bookService.deleteBook(bookId);
+        String response = null;
+        try {
+            response = bookService.deleteBook(bookId);
+        } catch (BookException e) {
+            log.info("Error deleting book: {}", e.getMessage());
+        }
 
         assertEquals("Half of a yellow sun deleted successfully", response);
     }

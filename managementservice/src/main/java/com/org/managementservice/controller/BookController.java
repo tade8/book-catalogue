@@ -10,7 +10,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
     @Autowired
     public BookController(BookService bookService) {
@@ -18,7 +18,7 @@ public class BookController {
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
+    public Book createBook(@RequestBody Book book) throws BookException {
         return bookService.createBook(book);
     }
 
@@ -28,12 +28,12 @@ public class BookController {
     }
 
     @PutMapping
-    public Book updateBook(@RequestBody Book book) {
+    public Book updateBook(@RequestBody Book book) throws BookException {
         return bookService.updateBook(book);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable String id) {
+    public String deleteBook(@PathVariable String id) throws BookException {
         return bookService.deleteBook(id);
     }
 }

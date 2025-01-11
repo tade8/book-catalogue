@@ -104,18 +104,19 @@
                             <version>${lombok-mapstruct-binding.version}</version>
                         </path>
                     </annotationProcessorPaths>
-<!--                    <showWarnings>true</showWarnings>-->
-<!--                    <compilerArgs>-->
-<!--                        <arg>-->
-<!--                            -Amapstruct.suppressGeneratorTimestamp=true-->
-<!--                        </arg>-->
-<!--                        <arg>-->
-<!--                            -Amapstruct.suppressGeneratorVersionInfoComment=true-->
-<!--                        </arg>-->
-<!--                        <arg>-->
-<!--                            -Amapstruct.verbose=true-->
-<!--                        </arg>-->
-<!--                    </compilerArgs>-->
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                        <arg>
+                            -Amapstruct.suppressGeneratorTimestamp=true
+                        </arg>
+                        <arg>
+                            -Amapstruct.suppressGeneratorVersionInfoComment=true
+                        </arg>
+                        <arg>
+                            -Amapstruct.verbose=true
+                        </arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
