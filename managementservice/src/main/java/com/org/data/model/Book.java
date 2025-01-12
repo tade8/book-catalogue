@@ -18,14 +18,15 @@ import java.time.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Min(value = 1, message = "ID must be greater than or equal to 1")
     private Long id;
     @Column(unique = true, nullable = false)
     @NotNull(message = "The name must not be null")
+    @NotBlank(message = "The name must not be empty")
     private String name;
     @Column(unique = true, nullable = false)
-    @NotNull(message = "The isbn book must not be null")
+    @NotNull(message = "The isbn must not be null")
+    @NotBlank(message = "The isbn must not be empty")
     private String isbn;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate publishedDate;

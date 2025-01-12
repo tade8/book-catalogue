@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book createBook(@NotNull Book book) throws BookException {
+    public Book createBook(@Valid @NotNull Book book) throws BookException {
         Optional<Book> foundBook = bookRepository.findByName(book.getName());
         if (foundBook.isPresent()) {
             throw new BookException(BookConstants.THIS_BOOK_ALREADY_EXISTS);
@@ -47,6 +47,9 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book updateBook(@Valid @NotNull Book book) throws BookException {
+        if (book.getId() == null || book.getId() == 0) {
+            throw new BookException(BookConstants.BOOK_ID_MUST_NOT_BE_EMPTY);
+        }
        Book foundBook = bookRepository.findById(book.getId()).
                 orElseThrow(() -> new BookException(BookConstants.BOOK_NOT_FOUND));
        foundBook = bookMapper.updateBook(book, foundBook);

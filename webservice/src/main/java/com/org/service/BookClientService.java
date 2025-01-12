@@ -3,11 +3,13 @@ package com.org.service;
 
 import com.org.data.model.*;
 
+import javax.validation.*;
+import javax.validation.constraints.*;
 import java.util.*;
 
 public interface BookClientService {
-    Book createBook(Book book) throws BookClientException;
+    Book createBook(@Valid @NotNull Book book) throws BookClientException;
     List<Book> getBooks();
-    Book updateBook(Book book);
-    String deleteBook(String id);
+    Book updateBook(@Valid @NotNull Book book) throws BookClientException;
+    String deleteBook(@NotNull Long id) throws BookClientException;
 }

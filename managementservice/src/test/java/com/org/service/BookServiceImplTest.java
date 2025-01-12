@@ -78,6 +78,24 @@ class BookServiceImplTest {
     }
 
     @Test
+    void createBookWithEmptyName() {
+        book.setName("");
+        assertThrows(ConstraintViolationException.class, ()->bookService.createBook(book));
+    }
+
+    @Test
+    void createBookWithNullName() {
+        book.setName(null);
+        assertThrows(ConstraintViolationException.class, ()->bookService.createBook(book));
+    }
+
+    @Test
+    void createBookWithEmptyIsbn() {
+        book.setIsbn("");
+        assertThrows(ConstraintViolationException.class, ()->bookService.createBook(book));
+    }
+
+    @Test
     @Order(3)
     void viewAllBooks() {
         List<Book> books = bookService.getAllBooks();
@@ -113,7 +131,7 @@ class BookServiceImplTest {
     @Test
     void editBookWithNullId() {
         book.setId(null);
-        assertThrows(ConstraintViolationException.class, () -> bookService.updateBook(book));
+        assertThrows(BookException.class, () -> bookService.updateBook(book));
     }
 
     @Test

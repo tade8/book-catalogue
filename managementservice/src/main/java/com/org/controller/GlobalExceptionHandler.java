@@ -1,13 +1,20 @@
 package com.org.controller;
 
+import com.org.*;
 import com.org.service.*;
+import lombok.extern.slf4j.*;
 import org.springframework.http.*;
+import org.springframework.http.converter.*;
+import org.springframework.validation.*;
+import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
 import java.time.*;
+import java.util.*;
 
-@ControllerAdvice
+@RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookException.class)
@@ -20,6 +27,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public  ResponseEntity<ExceptionResponse> handleConstraintViolationException(ConstraintViolationException exception){
         return new ResponseEntity<>(errorResponseBuilder(exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public  ResponseEntity<ExceptionResponse> handleEnumException(HttpMessageNotReadableException exception) {
+        log.error("Enum exception: {}", exception.getMessage());
+        return new ResponseEntity<>(errorResponseBuilder(BookConstants.INVALID_BOOK_TYPE), HttpStatus.BAD_REQUEST);
     }
 
     private static ExceptionResponse errorResponseBuilder(String message) {

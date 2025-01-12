@@ -7,7 +7,7 @@ Open a terminal and navigate to the management service module
 Run the following command:
 
     mvn clean package
-    java -jar target/managementservice.jar
+    java -jar target/managementservice-1.0-SNAPSHOT.jar
 
 Open a new terminal and navigate to the webservice module:
     
@@ -16,7 +16,7 @@ Open a new terminal and navigate to the webservice module:
 Run the following command to start the webservice:
 
     mvn clean package
-    java -jar target/webservice.jar
+    java -jar target/webservice-1.0-SNAPSHOT.jar
 
 Open your browser to access the web service page at this address:
 [http://localhost:8081](http://localhost:8081)
