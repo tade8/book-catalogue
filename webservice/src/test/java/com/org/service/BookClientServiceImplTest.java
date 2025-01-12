@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
-//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ContextConfiguration(classes = WebserviceApplication.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@ContextConfiguration(classes = WebserviceApplication.class)
 class BookClientServiceImplTest {
     @Autowired
     private BookClientService bookClientService;
@@ -27,6 +27,7 @@ class BookClientServiceImplTest {
         book = Book.builder().
                 name("Things Fall Apart").
                 bookType(BookType.HARD_COVER).
+                isbn("785765783296").
                 price(new BigDecimal("30000")).build();
         book = bookClientService.createBook(book);
         assertNotNull(book);
