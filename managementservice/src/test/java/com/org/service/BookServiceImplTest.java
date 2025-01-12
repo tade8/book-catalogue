@@ -1,14 +1,15 @@
 package com.org.service;
 
+import com.org.*;
 import com.org.data.model.*;
 import com.org.data.repository.*;
-import jakarta.validation.*;
 import lombok.extern.slf4j.*;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
+import org.springframework.test.context.*;
 
+import javax.validation.*;
 import java.math.*;
 import java.util.*;
 
@@ -18,13 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Slf4j
+@ContextConfiguration(classes = ManagementserviceApplication.class)
 class BookServiceImplTest {
     @Autowired
     private BookService bookService;
     @Autowired
     private BookRepository bookRepository;
     private Book book;
-    private String bookId;
+    private Long bookId;
 
     @BeforeEach
     void setUp() {
@@ -37,9 +39,9 @@ class BookServiceImplTest {
 
     @AfterAll
     void tearDown() {
-        if (book != null && StringUtils.isNotEmpty(book.getId())) {
+        if (bookId != null) {
             try {
-                bookService.deleteBook(book.getId());
+                bookService.deleteBook(bookId);
             } catch (BookException e) {
                 log.info("Error deleting book: {}", e.getMessage());
             }

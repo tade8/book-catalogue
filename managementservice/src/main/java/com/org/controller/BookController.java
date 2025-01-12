@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable String id) throws BookException {
+    public String deleteBook(@PathVariable Long id) throws BookException {
         return bookService.deleteBook(id);
     }
 }

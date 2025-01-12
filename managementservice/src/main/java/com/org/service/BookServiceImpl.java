@@ -3,13 +3,13 @@ package com.org.service;
 import com.org.*;
 import com.org.data.model.*;
 import com.org.data.repository.*;
-import jakarta.validation.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.annotation.*;
 
+import javax.validation.*;
+import javax.validation.constraints.*;
 import java.time.*;
 import java.util.*;
 
@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public String deleteBook(@NotNull String bookId) throws BookException {
+    public String deleteBook(@NotNull Long bookId) throws BookException {
         Book foundBook = bookRepository.findById(bookId).
                 orElseThrow(() -> new BookException(BookConstants.BOOK_NOT_FOUND));
         bookRepository.delete(foundBook);

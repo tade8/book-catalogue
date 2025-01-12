@@ -1,18 +1,20 @@
 package com.org.service;
 
 import com.org.data.model.*;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.client.*;
-import jakarta.ws.rs.core.*;
+import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 
+import javax.ws.rs.*;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
 import java.util.*;
 
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BookClientServiceImpl implements BookClientService {
     private final Client client = ClientBuilder.newClient();
     @Value("${backend.base.url}")
