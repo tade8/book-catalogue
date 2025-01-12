@@ -2,7 +2,6 @@ package com.org.data.repository;
 
 import com.org.*;
 import com.org.data.model.*;
-import com.org.managementservice.data.model.*;
 import jakarta.validation.constraints.*;
 import org.springframework.data.jpa.repository.*;
 

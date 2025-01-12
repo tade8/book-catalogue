@@ -13,6 +13,7 @@ import java.time.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 public class Book {
     @Id

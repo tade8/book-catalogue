@@ -1,8 +1,6 @@
 package com.org.controller;
 
 import com.org.data.model.*;
-import com.org.managementservice.data.model.*;
-import com.org.managementservice.service.*;
 import com.org.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;

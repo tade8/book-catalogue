@@ -2,8 +2,6 @@ package com.org.service;
 
 import com.org.data.model.*;
 import com.org.data.repository.*;
-import com.org.managementservice.data.model.*;
-import com.org.managementservice.data.repository.*;
 import jakarta.validation.*;
 import lombok.extern.slf4j.*;
 import org.apache.commons.lang3.StringUtils;

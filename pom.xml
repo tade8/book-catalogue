@@ -17,9 +17,7 @@
         <version>3.0.0</version>
     </parent>
 
-    <dependencyManagement>
-        <dependencies>
+    <dependencies>
 
-        </dependencies>
-    </dependencyManagement>
+    </dependencies>
 </project>
