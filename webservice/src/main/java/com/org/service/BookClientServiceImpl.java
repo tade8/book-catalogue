@@ -1,8 +1,10 @@
 package com.org.service;
 
 import com.org.data.model.*;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 
@@ -10,17 +12,23 @@ import java.util.*;
 
 
 @Service
-//@RequiredArgsConstructor
+@Slf4j
 public class BookClientServiceImpl implements BookClientService {
     private Client client = ClientBuilder.newClient();
     @Value("${backend.base.url}")
     private String baseUrl;
 
     @Override
-    public Book createBook(Book book) {
-        Response response = client.target(baseUrl)
-                .request(MediaType.APPLICATION_JSON)
-                .post(Entity.entity(book, MediaType.APPLICATION_JSON));
+    public Book createBook(Book book) throws BookClientException {
+        Response response;
+        try {
+            response = client.target(baseUrl)
+                    .request(MediaType.APPLICATION_JSON)
+                    .post(Entity.entity(book, MediaType.APPLICATION_JSON));
+        } catch (ProcessingException e) {
+            log.error("Error creating book: {}", e.getMessage());
+            throw new BookClientException("Cannot connect to server");
+        }
         return response.readEntity(Book.class);
     }
 
