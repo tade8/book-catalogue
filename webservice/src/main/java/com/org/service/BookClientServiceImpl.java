@@ -14,7 +14,7 @@ import java.util.*;
 @Service
 @Slf4j
 public class BookClientServiceImpl implements BookClientService {
-    private Client client = ClientBuilder.newClient();
+    private final Client client = ClientBuilder.newClient();
     @Value("${backend.base.url}")
     private String baseUrl;
 
@@ -25,11 +25,11 @@ public class BookClientServiceImpl implements BookClientService {
             response = client.target(baseUrl)
                     .request(MediaType.APPLICATION_JSON)
                     .post(Entity.entity(book, MediaType.APPLICATION_JSON));
+            return response.readEntity(Book.class);
         } catch (ProcessingException e) {
             log.error("Error creating book: {}", e.getMessage());
             throw new BookClientException("Cannot connect to server");
         }
-        return response.readEntity(Book.class);
     }
 
     @Override
