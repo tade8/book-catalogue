@@ -32,7 +32,7 @@ class BookClientServiceImplTest {
         try {
             book = bookClientService.createBook(book);
         } catch (BookClientException e) {
-            log.error("Book creation failed: {}", e);
+            log.error("Book creation failed: ", e);
         }
         assertNotNull(book);
     }
