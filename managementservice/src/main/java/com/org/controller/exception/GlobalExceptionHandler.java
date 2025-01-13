@@ -1,4 +1,4 @@
-package com.org.controller;
+package com.org.controller.exception;
 
 import com.org.*;
 import com.org.service.*;
@@ -16,6 +16,20 @@ import java.util.*;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Map<String, ExceptionResponse>> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, ExceptionResponse> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach(error -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorResponseBuilder(errorMessage));
+        });
+        log.info("Validation errors: {}", errors);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(BookException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

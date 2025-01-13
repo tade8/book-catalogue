@@ -1,4 +1,4 @@
-package com.org.controller;
+package com.org.controller.exception;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
