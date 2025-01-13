@@ -12,4 +12,5 @@ public interface BookClientService {
     List<Book> getBooks();
     Book updateBook(@Valid @NotNull Book book) throws BookClientException;
     String deleteBook(@NotNull Long id) throws BookClientException;
+    Book getBookById(@NotNull Long id) throws BookClientException;
 }

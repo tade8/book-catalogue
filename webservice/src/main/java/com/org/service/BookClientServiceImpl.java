@@ -27,19 +27,15 @@ public class BookClientServiceImpl implements BookClientService {
 
     @Override
     public Book createBook(@Valid @NotNull Book book) throws BookClientException {
-        Response response;
-        try {
-            WebTarget target = client.target(baseUrl);
-            Invocation.Builder request = target.request(MediaType.APPLICATION_JSON);
-            log.info("Request : {}", request);
-            response = request.post(Entity.json(book));
-            log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
-            return response.readEntity(Book.class);
+        WebTarget target = client.target(baseUrl);
+        Invocation.Builder request = target.request(MediaType.APPLICATION_JSON);
+        log.info("Request: {}", request);
+        Response response = request.post(Entity.json(book));
+        log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
+        if (response.getStatus() != 200){
+            throw new BookClientException(BookConstants.ERROR_CREATING_BOOK);
         }
-        catch (ProcessingException e) {
-            log.error("Error creating book: {}", e.getMessage());
-            throw new BookClientException(BookConstants.INVALID_INPUT_PROVIDED);
-        }
+        return response.readEntity(Book.class);
     }
 
     @Override
@@ -51,28 +47,35 @@ public class BookClientServiceImpl implements BookClientService {
 
     @Override
     public Book updateBook(@Valid @NotNull Book book) throws BookClientException {
-        try {
-            Response response = client.target(baseUrl)
-                    .request(MediaType.APPLICATION_JSON)
-                    .put(Entity.json(book));
+        Response response = client.target(baseUrl)
+                .request(MediaType.APPLICATION_JSON)
+                .put(Entity.json(book));
+        if (response.getStatus() != 200){
             log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
-            return response.readEntity(Book.class);
-        } catch (ProcessingException e) {
-            throw new BookClientException(BookConstants.INVALID_INPUT_PROVIDED);
+            throw new BookClientException(BookConstants.ERROR_UPDATING_BOOK);
         }
+        return response.readEntity(Book.class);
     }
 
     @Override
-    public String deleteBook(@NotNull Long id) throws BookClientException {
+    public String deleteBook(@NotNull Long id) {
+        Response response = client.target(baseUrl + "/" + id)
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+        log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
+        return response.readEntity(String.class);
+    }
+
+    @Override
+    public Book getBookById(@NotNull Long id) throws BookClientException {
         try {
-            Response response = client.target(baseUrl).path(id.toString())
-                    .request(MediaType.APPLICATION_JSON)
-                    .delete();
+            Response response = client.target(baseUrl + "/" + id).request(MediaType.APPLICATION_JSON).get();
             log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
-            return response.readEntity(String.class);
-        } catch (ProcessingException e) {
-            log.error("Error deleting book: {}", e.getMessage());
-            throw new BookClientException("Error deleting book");
+            return response.readEntity(Book.class);
+        }
+        catch (ProcessingException e) {
+            log.error(BookConstants.ERROR_FETCHING_BOOK, e);
+            throw new BookClientException(BookConstants.BOOK_NOT_FOUND);
         }
     }
 }

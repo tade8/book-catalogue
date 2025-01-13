@@ -7,11 +7,12 @@ import lombok.extern.slf4j.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.core.annotation.Order;
 import org.springframework.test.context.*;
 
 import javax.validation.*;
 import java.math.*;
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,10 +33,13 @@ class BookClientServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         book = Book.builder().
                 name("Things Fall Apart").
                 bookType(BookType.HARD_COVER).
                 isbn("785765783296").
+                publishedDate(LocalDate.parse("20/01/2024", formatter)).
                 price(new BigDecimal("30000")).build();
     }
 
@@ -56,6 +60,28 @@ class BookClientServiceImplTest {
         assertNotNull(book);
         assertNotNull(book.getId());
         bookId = book.getId();
+    }
+
+    @Test
+    void viewBookById() throws BookClientException {
+        try {
+            book = bookClientService.createBook(book);
+        } catch (BookClientException e) {
+            log.error("Book creation failed: ", e);
+        }
+        assertNotNull(book);
+        assertNotNull(book.getId());
+        bookId = book.getId();
+
+        book = bookClientService.getBookById(bookId);
+
+        assertNotNull(book);
+        assertNotNull(book.getId());
+    }
+
+    @Test
+    void viewBookByNonExistingId() {
+        assertThrows(BookClientException.class, ()->bookClientService.getBookById(7L));
     }
 
     @Test
@@ -95,10 +121,13 @@ class BookClientServiceImplTest {
             log.error("Book creation failed: ", e);
         }
         assertNotNull(book);
-        assertNotNull(book.getId());
 
+        book.setName("Days at forcados high school");
         book = bookClientService.updateBook(book);
+
         assertNotNull(book);
+        assertNotNull(book.getId());
+        assertEquals("Days at forcados high school", book.getName());
         bookId = book.getId();
     }
 

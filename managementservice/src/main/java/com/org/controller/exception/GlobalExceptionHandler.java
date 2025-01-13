@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorResponseBuilder(errorMessage));
         });
-        log.info("Validation errors: {}", errors);
+        log.info("Validation errors: {}", errors.entrySet());
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 

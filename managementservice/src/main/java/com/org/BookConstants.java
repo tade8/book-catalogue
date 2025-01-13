@@ -9,4 +9,8 @@ public class BookConstants {
     public static final String RESPONSE_RETURNED = "Response returned";
     public static final String INVALID_INPUT_PROVIDED = "Invalid input provided";
     public static final String INVALID_ID_PROVIDED = "Invalid id provided";
+    public static final String ERROR_CREATING_BOOK = "Error creating book";
+    public static final String ERROR_UPDATING_BOOK = "Error updating book";
+    public static final String ERROR_DELETING_BOOK = "Error deleting book";
+    public static final String ERROR_FETCHING_BOOK = "Error fetching book";
 }

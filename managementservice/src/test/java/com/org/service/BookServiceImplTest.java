@@ -11,6 +11,7 @@ import org.springframework.test.context.*;
 
 import javax.validation.*;
 import java.math.*;
+import java.time.*;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,6 +98,23 @@ class BookServiceImplTest {
 
     @Test
     @Order(3)
+    void viewBookById() {
+        try {
+            book = bookService.getBookById(bookId);
+        } catch (BookException e) {
+            log.error("Error finding book by" + bookId, e);
+        }
+        assertNotNull(book);
+    }
+
+    @Test
+    void viewBookByNullId() {
+        book.setId(null);
+        assertThrows(ConstraintViolationException.class, ()->bookService.getBookById(book.getId()));
+    }
+
+    @Test
+    @Order(4)
     void viewAllBooks() {
         List<Book> books = bookService.getAllBooks();
 
@@ -105,7 +123,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void editBook() {
         Optional<Book> foundBook = bookRepository.findById(bookId);
         assertTrue(foundBook.isPresent());
@@ -135,7 +153,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void deleteBook() {
         String response = null;
         try {

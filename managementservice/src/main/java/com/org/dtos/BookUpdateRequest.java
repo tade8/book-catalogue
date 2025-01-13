@@ -1,5 +1,6 @@
 package com.org.dtos;
 
+import com.fasterxml.jackson.annotation.*;
 import com.org.data.model.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class BookUpdateRequest {
     private Long id;
     private String name;
     private String isbn;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate publishedDate;
     private BookType bookType;
     private BigDecimal price;

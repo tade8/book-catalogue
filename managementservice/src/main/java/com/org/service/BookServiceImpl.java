@@ -46,6 +46,12 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public Book getBookById(@NotNull Long id) throws BookException {
+        return bookRepository.findById(id).
+                orElseThrow(()-> new BookException(BookConstants.BOOK_NOT_FOUND));
+    }
+
+    @Override
     public Book updateBook(@Valid @NotNull Book book) throws BookException {
         if (book.getId() == null || book.getId() == 0) {
             throw new BookException(BookConstants.BOOK_ID_MUST_NOT_BE_EMPTY);
