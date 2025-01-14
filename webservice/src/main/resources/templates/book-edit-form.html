@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+</head>
+<body>
+
+<h1>Edit Book</h1>
+
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+</div>
+
+<form action="#" th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post">
+    <div>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required><br><br>
+        </div>
+
+        <div>
+            <label for="isbn">Isbn:</label>
+            <input type="text" id="isbn" th:field="*{isbn}" required><br><br>
+        </div>
+
+        <div>
+            <label for="price">Price:</label>
+            <input type="text" id="price" th:field="*{price}" required><br><br>
+        </div>
+
+        <div>
+            <label for="publishedDate">Published Date:</label>
+            <input
+                    type="text"
+                    id="publishedDate"
+                    th:field="*{publishedDate}"
+                    placeholder="dd/MM/yyyy"
+                    required
+            >
+            <br><br>
+        </div>
+
+        <div>
+            <label for="bookType">Book Type:</label>
+            <select id="bookType" name="bookType" required>
+                <option value="" disabled selected>Select book type</option>
+                <option value="HARD_COVER">Hard Cover</option>
+                <option value="SOFT_COVER">Soft Cover</option>
+                <option value="E_BOOK">e-book</option>
+                <option value="AUDIO_BOOK">Audio Book</option>
+            </select>
+        </div>
+        <div>
+            <p>
+                <input type="submit" value="Save Changes">
+            </p>
+        </div>
+    </div>
+</form>
+<p>
+    <a href="/books">Back to Book List</a>
+</p>
+
+</body>
+</html>

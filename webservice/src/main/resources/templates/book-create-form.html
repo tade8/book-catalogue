@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Book</title>
+</head>
+<body>
+
+<h1>Create a New Book</h1>
+
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+</div>
+
+<form action="#" th:action="@{/books/create}" th:object="${book}" method="post">
+    <div>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required><br><br>
+        </div>
+
+        <div>
+            <label for="isbn">Isbn:</label>
+            <input type="text" id="isbn" th:field="*{isbn}" required><br><br>
+        </div>
+
+        <div>
+            <label for="price">Price:</label>
+            <input type="text" id="price" th:field="*{price}" required><br><br>
+        </div>
+
+        <div>
+            <label for="bookType">Book Type:</label>
+            <select id="bookType" name="bookType" required="true">
+                <option value="" disabled selected>Select book type</option>
+                <option value="HARD_COVER">Hard Cover</option>
+                <option value="SOFT_COVER">Soft Cover</option>
+                <option value="E_BOOK">eBook</option>
+                <option value="AUDIO_BOOK">Audio Book</option>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <p>
+            <input type="submit" value="Create Book">
+        </p>
+    </div>
+</form>
+
+<div>
+    <a href="/books">Back to Book List</a>
+</div>
+
+</body>
+</html>
