@@ -4,7 +4,6 @@ import com.org.managementservice.*;
 import com.org.managementservice.data.model.Book;
 import com.org.managementservice.dtos.*;
 import com.org.webservice.service.*;
-import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/books")
-//@RequiredArgsConstructor
 public class BookClientController {
     public static final String ERROR = "error";
     public static final String REDIRECT_BOOKS_LIST = "redirect:/books";

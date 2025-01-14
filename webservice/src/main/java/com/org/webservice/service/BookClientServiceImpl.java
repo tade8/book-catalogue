@@ -15,7 +15,7 @@ import javax.ws.rs.core.*;
 import java.util.*;
 
 
-@Service
+@Component
 @Slf4j
 @Validated
 public class BookClientServiceImpl implements BookClientService {
