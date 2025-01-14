@@ -1,22 +1,25 @@
 package com.org.webservice;
 
 import com.org.managementservice.*;
-import com.org.managementservice.data.model.*;
+import com.org.managementservice.data.model.Book;
 import com.org.managementservice.dtos.*;
 import com.org.webservice.service.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+
+
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/books")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class BookClientController {
     public static final String ERROR = "error";
     public static final String REDIRECT_BOOKS_LIST = "redirect:/books";
@@ -25,6 +28,12 @@ public class BookClientController {
     public static final String BOOK_EDIT_FORM = "book-edit-form";
     private final BookClientService bookClientService;
     private final BookMapper bookMapper;
+
+    @Autowired
+    public BookClientController(BookClientService bookClientService, BookMapper bookMapper) {
+        this.bookClientService = bookClientService;
+        this.bookMapper = bookMapper;
+    }
 
     @GetMapping
     public String getAllBooks(Model model) {

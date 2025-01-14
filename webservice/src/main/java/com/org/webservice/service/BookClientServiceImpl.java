@@ -2,7 +2,6 @@ package com.org.webservice.service;
 
 import com.org.managementservice.*;
 import com.org.managementservice.data.model.*;
-import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
@@ -19,7 +18,6 @@ import java.util.*;
 @Service
 @Slf4j
 @Validated
-@RequiredArgsConstructor
 public class BookClientServiceImpl implements BookClientService {
     private final Client client = ClientBuilder.newClient();
     @Value("${backend.base.url}")
