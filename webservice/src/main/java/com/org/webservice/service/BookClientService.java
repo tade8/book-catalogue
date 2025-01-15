@@ -1,6 +1,6 @@
 package com.org.webservice.service;
 
-import com.org.managementservice.data.model.*;
+import com.org.library.data.model.*;
 
 import javax.validation.*;
 import javax.validation.constraints.*;

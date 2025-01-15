@@ -78,9 +78,9 @@
         </dependency>
 
         <dependency>
-            <artifactId>managementservice</artifactId>
+            <artifactId>library</artifactId>
             <groupId>com.org</groupId>
-            <version>${project.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

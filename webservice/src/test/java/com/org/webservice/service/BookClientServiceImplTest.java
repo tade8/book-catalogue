@@ -1,7 +1,7 @@
 package com.org.webservice.service;
 
-import com.org.managementservice.data.model.*;
-import com.org.managementservice.data.repository.*;
+import com.org.library.data.model.*;
+import com.org.library.data.repository.*;
 import com.org.webservice.*;
 import lombok.extern.slf4j.*;
 import org.junit.jupiter.api.*;

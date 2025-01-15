@@ -1,7 +1,7 @@
 package com.org.webservice.service;
 
-import com.org.managementservice.*;
-import com.org.managementservice.data.model.*;
+import com.org.library.*;
+import com.org.library.data.model.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
@@ -25,10 +25,9 @@ public class BookClientServiceImpl implements BookClientService {
 
     @Override
     public Book createBook(@Valid @NotNull Book book) throws BookClientException {
-        WebTarget target = client.target(baseUrl);
-        Invocation.Builder request = target.request(MediaType.APPLICATION_JSON);
-        log.info("Request: {}", request);
-        Response response = request.post(Entity.json(book));
+        Response response = client.target(baseUrl).
+                request(MediaType.APPLICATION_JSON).
+                post(Entity.entity(book, MediaType.APPLICATION_JSON));
         log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
         if (response.getStatus() != 200){
             throw new BookClientException(BookConstants.ERROR_CREATING_BOOK);
