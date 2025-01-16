@@ -43,15 +43,13 @@ public class BookController {
     @GetMapping("/{id}")
     public Book viewBookById(@Valid @PathVariable
                              @NotNull(message = "The id must not be null")
-                             @NotBlank(message = "The id must not be empty")
                              Long id) throws BookException {
         return bookService.getBookById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteBook(@Valid @PathVariable
                                  @NotNull(message = "The id must not be null")
-                                 @NotBlank(message = "The id must not be empty")
                                  Long id) throws BookException {
         return bookService.deleteBook(id);
     }

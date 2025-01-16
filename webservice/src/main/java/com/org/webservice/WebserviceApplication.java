@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.*;
 
 import org.springframework.data.jpa.repository.config.*;
 
-@SpringBootApplication(scanBasePackages = {"com.org.library"})
+@SpringBootApplication(scanBasePackages = {"com.org.library", "com.org.webservice"})
 @EntityScan(basePackages = {"com.org.library.data.model"})
 @EnableJpaRepositories(basePackages = "com.org.library.data.repository")
 public class WebserviceApplication {

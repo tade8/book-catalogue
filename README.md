@@ -2,7 +2,7 @@
 
 Open a terminal and navigate to the management service module
 
-    cd managementservice 
+    cd bookmanagementservice/application 
 
 Run the following commands:
 

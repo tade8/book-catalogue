@@ -58,7 +58,7 @@ public class BookClientServiceImpl implements BookClientService {
 
     @Override
     public String deleteBook(@NotNull Long id) {
-        Response response = client.target(baseUrl + "/" + id)
+        Response response = client.target(baseUrl + "/delete/" + id)
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
         log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
