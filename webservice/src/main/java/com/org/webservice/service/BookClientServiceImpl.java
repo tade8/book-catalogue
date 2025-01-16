@@ -60,7 +60,7 @@ public class BookClientServiceImpl implements BookClientService {
     public String deleteBook(@NotNull Long id) {
         Response response = client.target(baseUrl + "/delete/" + id)
                 .request(MediaType.APPLICATION_JSON)
-                .delete();
+                .post(Entity.json(null));
         log.info(BookConstants.RESPONSE_RETURNED + ": {}", response);
         return response.readEntity(String.class);
     }

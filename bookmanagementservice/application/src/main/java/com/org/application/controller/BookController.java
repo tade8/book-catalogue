@@ -1,9 +1,11 @@
 package com.org.application.controller;
 
+import com.org.library.constant.*;
 import com.org.library.data.model.*;
 import com.org.library.mapper.*;
 import com.org.library.service.*;
 import com.org.library.dtos.*;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/books")
+@Slf4j
 public class BookController {
     private final BookService bookService;
     private final BookMapper bookMapper;
@@ -51,6 +54,8 @@ public class BookController {
     public String deleteBook(@Valid @PathVariable
                                  @NotNull(message = "The id must not be null")
                                  Long id) throws BookException {
-        return bookService.deleteBook(id);
+        String response = bookService.deleteBook(id);
+        log.info(BookConstants.RESPONSE_RETURNED + response);
+        return response;
     }
 }
