@@ -1,6 +1,6 @@
 package com.org.library.data.repository;
 
-import com.org.library.*;
+import com.org.library.constant.*;
 import com.org.library.data.model.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;

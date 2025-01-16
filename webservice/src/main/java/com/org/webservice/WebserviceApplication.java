@@ -6,11 +6,9 @@ import org.springframework.boot.autoconfigure.domain.*;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.*;
 
-@SpringBootApplication
-@ComponentScan(basePackages = {
-         "com.org.*"
-})
-@EntityScan(basePackages = "com.org.library.data.model")
+@SpringBootApplication(scanBasePackages = {"com.org.library"})
+//@ComponentScan(basePackages = {"com.org.webservice"})
+@EntityScan(basePackages = {"com.org.library.data.model"})
 @EnableJpaRepositories(basePackages = "com.org.library.data.repository")
 public class WebserviceApplication {
 

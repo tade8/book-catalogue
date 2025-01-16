@@ -12,6 +12,7 @@
     <groupId>com.org</groupId>
     <artifactId>webservice</artifactId>
     <name>webservice</name>
+    <packaging>jar</packaging>
     <version>0.0.1</version>
     <description>Webservice UI for book catalogue application</description>
     <url/>

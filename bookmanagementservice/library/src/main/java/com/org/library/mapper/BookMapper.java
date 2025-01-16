@@ -1,4 +1,4 @@
-package com.org.library;
+package com.org.library.mapper;
 
 import com.org.library.dtos.*;
 import com.org.library.data.model.Book;

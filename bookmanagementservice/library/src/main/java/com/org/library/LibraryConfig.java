@@ -2,7 +2,7 @@ package com.org.library;
 
 import org.springframework.context.annotation.*;
 
+@ComponentScan(basePackages = {"com.org.library"})
 @Configuration
-@ComponentScan(basePackages = "com.org.library.data.repository")
 public class LibraryConfig {
 }

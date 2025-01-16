@@ -1,8 +1,9 @@
 package com.org.library.service;
 
-import com.org.library.*;
+import com.org.library.constant.*;
 import com.org.library.data.model.*;
 import com.org.library.data.repository.*;
+import com.org.library.mapper.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -30,6 +31,7 @@ public class BookServiceImpl implements BookService{
     public Book createBook(@Valid @NotNull Book book) throws BookException {
         Optional<Book> foundBook = bookRepository.findByName(book.getName());
         if (foundBook.isPresent()) {
+            log.info("Book with name {} already exists", book.getName());
             throw new BookException(BookConstants.THIS_BOOK_ALREADY_EXISTS);
         }
         book.setPublishedDate(LocalDate.now());

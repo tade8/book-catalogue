@@ -1,4 +1,4 @@
-package com.org.library;
+package com.org.library.constant;
 
 public class BookConstants {
     public static final String BOOK_NOT_FOUND = "Book not found";
