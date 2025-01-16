@@ -1,35 +1,53 @@
-**Book catalogue application**
+# ********************Book catalogue application********************
+
+## Installation
+
+Run the following command in a terminal
+
+Windows
+
+    mvn.cmd clean install
+
+Linux / macOS
+
+    ./mvnw clean install
+
+
+### **Build the book management application**
 
 Open a terminal and navigate to the book management service module
 
     cd bookmanagementservice/application 
 
-Run the following commands:
-
 Windows
 
     mvn.cmd clean install
-    java -jar target/application-0.0.1-SNAPSHOT.jar
 
 Linux / macOS
 
     ./mvnw clean install
+
+### **Run the jar**
+    
     java -jar target/application-0.0.1-SNAPSHOT.jar
+
 
 Open a new terminal and navigate to the webservice module:
+
+### Build the web service application
     
     cd webservice 
-  
-Run the following commands to start the webservice:
 
 Windows
 
     mvn.cmd clean install
-    java -jar target/webservice-0.0.1.jar
 
 Linux / macOS
 
     ./mvnw clean install
+
+### **Run the jar**
+
     java -jar target/webservice-0.0.1.jar
 
 Open your browser to access the web service page at this address:
