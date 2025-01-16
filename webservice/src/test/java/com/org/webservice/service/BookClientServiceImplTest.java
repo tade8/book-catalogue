@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ContextConfiguration(classes = {WebserviceApplication.class})
+@ContextConfiguration(classes = {BookClientServiceImpl.class, WebserviceApplication.class})
 class BookClientServiceImplTest {
     @Autowired
     private BookClientService bookClientService;

@@ -32,7 +32,9 @@ public class BookClientServiceImpl implements BookClientService {
         if (response.getStatus() != 200){
             throw new BookClientException(BookConstants.ERROR_CREATING_BOOK);
         }
-        return response.readEntity(Book.class);
+        Book createdBook = response.readEntity(Book.class);
+        log.info("Book created: {}", createdBook);
+        return createdBook;
     }
 
     @Override
