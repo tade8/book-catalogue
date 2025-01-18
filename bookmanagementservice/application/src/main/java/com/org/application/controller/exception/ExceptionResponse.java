@@ -8,6 +8,7 @@ import java.time.*;
 @Getter
 @AllArgsConstructor
 @Builder
+@ToString
 public class ExceptionResponse {
     private String message;
     private boolean status;
