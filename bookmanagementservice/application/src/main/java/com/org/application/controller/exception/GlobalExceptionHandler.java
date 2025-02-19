@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorResponseBuilder(errorMessage));
         });
-        log.info("Validation errors: {}", errors.entrySet());
+        log.error("Validation errors: {}", errors.entrySet());
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public  ResponseEntity<ExceptionResponse> handleEnumException(HttpMessageNotReadableException exception) {
         log.error("Enum exception: {}", exception.getMessage());
-        return new ResponseEntity<>(errorResponseBuilder(BookConstants.INVALID_BOOK_TYPE), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseBuilder(BookConstants.INVALID_INPUT_PROVIDED), HttpStatus.BAD_REQUEST);
     }
 
     private static ExceptionResponse errorResponseBuilder(String message) {

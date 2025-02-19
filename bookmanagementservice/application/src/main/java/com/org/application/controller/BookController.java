@@ -7,6 +7,7 @@ import com.org.library.service.*;
 import com.org.library.dtos.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
@@ -16,6 +17,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/books")
 @Slf4j
+@Validated
 public class BookController {
     private final BookService bookService;
     private final BookMapper bookMapper;

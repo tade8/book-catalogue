@@ -16,7 +16,7 @@ import java.time.*;
 @ToString
 public class BookUpdateRequest {
     @NotNull(message = "The id must not be null")
-    @Positive(message = "Book ID must be positive")
+    @PositiveOrZero(message = "Book ID must be positive")
     private Long id;
     private String name;
     private String isbn;
