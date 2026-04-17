@@ -1,0 +1,18 @@
+services:
+  bookmanagementservice:
+    build:
+      context: .
+      dockerfile: bookmanagementservice/Dockerfile
+    ports:
+      - "8085:8085"
+
+  webservice:
+    build:
+      context: .
+      dockerfile: webservice/Dockerfile
+    depends_on:
+      - bookmanagementservice
+    environment:
+      BACKEND_BASE_URL: http://bookmanagementservice:8085/api/v1/books
+    ports:
+      - "8081:8081"
